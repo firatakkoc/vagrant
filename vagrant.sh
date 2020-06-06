@@ -10,7 +10,7 @@ echo "################## vagrant done #########################"
 
 cd /Users/firat.akkoc/Documents/git_repo/vagrant
 
-vagrant up Vagranfile
+vagrant up  Vagranfile
 
 vagrant ssh
 

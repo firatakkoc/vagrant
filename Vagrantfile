@@ -11,21 +11,22 @@ Vagrant.configure(2) do |config|
     vb.memory = "1024"
   end
 
-  # Provision python development environment
-  config.vm.provision "shell", inline: <<-SHELL
-    export HOME=/home/vagrant
-    sudo apt-get update
-    sudo apt-get install -yq \
-      ntp \
-      git \
-      python-dev \
-      python-virtualenv \
-      postgresql \
-      libpq-dev
-    su vagrant -c 'cd /vagrant &&
-                   make venv/setup &&
-                   source venv/bin/activate &&
-                   make pip/update &&
-                   make db/create'
-  SHELL
+$provisioner = <<SCRIPT
+echo "#!/bin/bash
+function InstallPip {
+  if [ '$(which pip)' ]; then
+    echo '-- Already installed.'
+    return
+  fi
+  apt-get install python-dev python-setuptools -y -qq
+  curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+  python get-pip.py
+  rm get-pip.py
+}
+echo 'Installing Pip...'; InstallPip
+echo 'Installing Flask...'; pip install flask
+exit 0" | /bin/bash
+SCRIPT
+
+
 end
