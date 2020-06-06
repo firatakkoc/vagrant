@@ -1,4 +1,0 @@
-# file: vagrant.yml
----
-
-- hosts: 192.168.1.38
