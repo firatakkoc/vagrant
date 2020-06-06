@@ -1,4 +1,5 @@
 # vagrant
-test test test
+
+First run vagrant.sh
 
 
