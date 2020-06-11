@@ -8,7 +8,6 @@ sleep 2
 sudo apt update
 #sudo apt -y upgrade
 sudo apt -y install ntpdate
-sudo apt -y install snapd
 sudo ntpdate pool.ntp.org
 sudo apt -y install ntp
 sudo apt -y install build-essential libpq-dev libssl-dev openssl libffi-dev zlib1g-dev
