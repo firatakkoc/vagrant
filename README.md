@@ -1,8 +1,8 @@
-# scalable-ubuntu-flask-gunicorn-nginx
+# Flask App with Gunicorn and Nginx on Ubuntu 14.04 from Vagrant = trusty64
 
 ## Description:
 
-This solution provides scaffolding for a scalable [Python](https://www.python.org/) [Flask](http://flask.pocoo.org/) web application on [Ubuntu 18.04](https://www.ubuntu.com/) using [Gunicorn](https://gunicorn.org/) and [NGINX](http://nginx.org/). The web application also leverages [Virtualenv](https://virtualenv.pypa.io/en/latest/) to leverage isolated Python environments.
+This solution provides scaffolding for a scalable Python Flask web application on Ubuntu 14.04 using Gunicorn and NGINX. The web application also leverages Virtualenv to leverage isolated Python environments.
 
 ## Deployment:
 
@@ -10,18 +10,19 @@ By executing the setup.sh script (instructions below) you will have a "Hello Wor
 
 ## Requirement:
 
-* Ubuntu 18.04 server
-* A user named ubuntu on the Ubuntu Server with sudo privileges
+* Vagrant
+
+* VirtualBox
 
 ## Setup:
 
-* SSH onto your server and clone the repo into your /home/ubuntu directory
+* SSH onto your we created with Vagrantfile VM and clone the repo into your /home/vagrant directory
 * Go into the setup directory and run the setup.sh script
 
 ```bash
-git clone https://github.com/nethacker/scalable-ubuntu-flask-gunicorn-nginx.git
+git clone https://github.com/firatakkoc/vagrant.git
 
-cd scalable-ubuntu-flask-gunicorn-nginx/setup
+cd vagrant/vagrant/setup
 
 bash setup.sh
 ```
