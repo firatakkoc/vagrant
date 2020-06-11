@@ -43,7 +43,7 @@ echo '######################'
 sleep 2
 mkdir /home/vagrant/flask_apps
 cd /home/vagrant/flask_apps
-python3.4 -m venv app01_env
+virtualenv app01_env
 source app01_env/bin/activate
 pip install gunicorn flask
 pip install setproctitle
