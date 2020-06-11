@@ -41,15 +41,15 @@ echo '######################'
 echo 'APP DEPENDENCIES SETUP'
 echo '######################'
 sleep 2
-mkdir /home/ubuntu/flask_apps
-cd /home/ubuntu/flask_apps
+mkdir /home/vagrant/flask_apps
+cd /home/vagrant/flask_apps
 virtualenv app01_env
 source app01_env/bin/activate
 pip install gunicorn flask
 pip install setproctitle
-cp /home/ubuntu/scalable-ubuntu-flask-gunicorn-nginx/flask_app/app01.py /home/ubuntu/flask_apps/app01_env/
-cp /home/ubuntu/scalable-ubuntu-flask-gunicorn-nginx/flask_app/wsgi.py /home/ubuntu/flask_apps/app01_env/
-cp /home/ubuntu/scalable-ubuntu-flask-gunicorn-nginx/gunicorn/gunicorn_config.py /home/ubuntu/flask_apps/app01_env/
+cp /home/vagrant/vagrant/flask_app/app01.py /home/vagrant/flask_apps/app01_env/
+cp /home/vagrant/vagrant/flask_app/wsgi.py /home/vagrant/flask_apps/app01_env/
+cp /home/vagrant/vagrant/gunicorn/gunicorn_config.py /home/vagrant/flask_apps/app01_env/
 deactivate
 echo '###############################'
 echo 'APP DEPENDENCIES SETUP COMPLETE'
@@ -62,7 +62,7 @@ echo '#############'
 echo 'SYSTEMD SETUP'
 echo '#############'
 sleep 2
-sudo cp /home/ubuntu/scalable-ubuntu-flask-gunicorn-nginx/systemd/app01.service  /etc/systemd/system/
+sudo cp /home/vagrant/vagrant/systemd/app01.service  /etc/systemd/system/
 sudo systemctl start app01
 sudo systemctl enable app01.service
 echo '######################'
@@ -75,7 +75,7 @@ echo '###########'
 echo 'NGINX SETUP'
 echo '###########'
 sleep 2
-sudo cp /home/ubuntu/scalable-ubuntu-flask-gunicorn-nginx/nginx/nginx_app01.conf /etc/nginx/sites-available/
+sudo cp /home/vagrant/vagrant/nginx/nginx_app01.conf /etc/nginx/sites-available/
 sudo rm /etc/nginx/sites-enabled/default
 sudo ln -s /etc/nginx/sites-available/nginx_app01.conf /etc/nginx/sites-enabled
 sudo systemctl restart nginx
