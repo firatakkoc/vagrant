@@ -11,7 +11,7 @@ sudo apt -y install ntpdate
 sudo ntpdate pool.ntp.org
 sudo apt -y install ntp
 sudo apt -y install build-essential libpq-dev libssl-dev openssl libffi-dev zlib1g-dev
-sudo apt -y install python3-pip python3-dev python3-venv python3.4-venv python-virtualenv 
+sudo apt -y install python3-pip python3-dev python3-venv python3.4-venv
 sudo apt -y install nginx
 sudo pip3 install virtualenvwrapper
 echo '############################'
@@ -40,7 +40,7 @@ sleep 2
 echo '######################'
 echo 'APP DEPENDENCIES SETUP'
 echo '######################'
-sleep 2
+sudo apt -y install python-virtualenv
 mkdir /home/vagrant/flask_apps
 cd /home/vagrant/flask_apps
 virtualenv app01_env
