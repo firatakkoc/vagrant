@@ -1,4 +1,4 @@
-# Flask App with Gunicorn and Nginx on Ubuntu 14.04 from Vagrant = trusty64
+# Flask App with Gunicorn and Nginx on Ubuntu 18.04 from Vagrant = bento/ubuntu18.04
 
 ## Description:
 

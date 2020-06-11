@@ -83,6 +83,9 @@ echo 'NGINX SETUP COMPLETE'
 echo '####################'
 sleep 2
 
+sudo nginx -t
+sudo service nginx restart
+
 echo '###############################################'
 echo 'SCALABLE-UBUNTU-FLASK-GUNICORN-NGINX SUCCESSFUL'
 echo '###############################################'
