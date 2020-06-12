@@ -3,11 +3,11 @@ Description=Gunicorn for Flask app01
 After=network.target
 
 [Service]
-User=ubuntu
-Group=ubuntu
-WorkingDirectory=/home/ubuntu/flask_apps/app01_env
-Environment="PATH=/home/ubuntu/flask_apps/app01_env/bin"
-ExecStart=/home/ubuntu/flask_apps/app01_env/bin/gunicorn --config=gunicorn_config.py wsgi:hello
+User=vagrant
+Group=vagrant
+WorkingDirectory=/home/vagrant/flask_apps/app01_env
+Environment="PATH=/home/vagrant/flask_apps/app01_env/bin"
+ExecStart=/home/vagrant/flask_apps/app01_env/bin/gunicorn --config=gunicorn_config.py wsgi:hello
 
 [Install]
 WantedBy=multi-user.target
