@@ -34,8 +34,10 @@ Vagrant.configure("2") do |config|
 
   # Enable provisioning with a shell script.
   config.vm.provision "shell", inline: <<-SHELL
+    git clone https://github.com/firatakkoc/vagrant.git
+    cd vagrant/vagrant/setup
+    bash setup.sh
   # sudo apt update
-  # sudo apt upgrade -y
   # sudo apt-get install python3-pip python3-dev nginx supervisor -y
   # sudo apt install nginx build-essential supervisor python3-setuptools python3-pip python3-dev python3.4-venv -y
 
