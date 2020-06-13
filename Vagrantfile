@@ -1,27 +1,36 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+
 Vagrant.configure("2") do |config|
-
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "bento/ubuntu-18.04"
+  
+config.vm.box = "bento/ubuntu-18.04"
 
 
-  # NOTE: This will enable public access to the opened port
-  config.vm.network "forwarded_port", guest: 80, host: 8080
+  # accessing "localhost:8080" will access port 80 on the guest machine.
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
 
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine and only allow access
   # via 127.0.0.1 to disable public access
-  # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
 
   # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-   config.vm.network "private_network", type: "dhcp"
+  config.vm.network "private_network", type: "dhcp"
 
-
+  #config.vm.provision "file", source: "/Users/firat.akkoc/Documents/git_repo/vagrant/flask_app/, destination: "$HOME/vagrant/flask_apps/app01_env/app01.py
+  
   # Bridged networks make the machine appear as another physical device on
   # your network.
-  #config.vm.network "public_network" 
+  # config.vm.network "public_network", type: "dhcp"
+
+
+  #config.push.define "local-exec" do |push|
+    #push.script = "deploy.sh"
+
+  # Share an additional folder to the guest VM.
+  
+
 
   # config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
@@ -31,15 +40,96 @@ Vagrant.configure("2") do |config|
   #   vb.memory = "1024"
   # end
 
-
+  
+  
   # Enable provisioning with a shell script.
   config.vm.provision "shell", inline: <<-SHELL
+    apt-get update
+    sudo apt -y install git
     git clone https://github.com/firatakkoc/vagrant.git
-    cd vagrant/vagrant/setup
-    bash setup.sh
-  # sudo apt update
-  # sudo apt-get install python3-pip python3-dev nginx supervisor -y
-  # sudo apt install nginx build-essential supervisor python3-setuptools python3-pip python3-dev python3.4-venv -y
+    sudo apt -y install ntpdate
+    sudo ntpdate pool.ntp.org
+    sudo apt -y install ntp
+    sudo apt -y install build-essential libpq-dev libssl-dev openssl libffi-dev zlib1g-dev
+    sudo apt -y install python3-pip python3-dev python3-venv python3.4-venv
+    sudo apt -y install nginx
+    sudo pip3 install virtualenvwrapper
+    echo '############################'
+    echo 'UBUNTU GLOBAL SETUP COMPLETE'
+    echo '############################'
+    sleep 2
+    # ubuntu user setup
+    echo '#################'
+    echo 'UBUNTU USER SETUP'
+    echo '#################'
+    sleep 2
+
+    echo '# default location of virtual environment directories' >> ~/.bashrc
+    echo 'export WORKON_HOME=$HOME/.virtualenvs' >> ~/.bashrc
+    echo '# default python version to use with virtualenv' >> ~/.bashrc
+    echo 'export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3' >> ~/.bashrc
+    echo "export VIRTUALENVWRAPPER_VIRTUALENV_ARGS=' -p /usr/bin/python3 '" >> ~/.bashrc
+    echo 'source `which virtualenvwrapper.sh`' >> ~/.bashrc
+    source ~/.bashrc
+    echo '##########################'
+    echo 'UBUNTU USER SETUP COMPLETE'
+    echo '##########################'
+    sleep 2
+
+    # app dependencies setup
+    echo '######################'
+    echo 'APP DEPENDENCIES SETUP'
+    sudo apt -y install python-virtualenv
+    mkdir /home/vagrant/flask_apps
+    cd /home/vagrant/flask_apps
+    virtualenv app01_env
+    source app01_env/bin/activate
+    pip install gunicorn flask
+    cp /home/vagrant/vagrant/flask_app/app01.py /home/vagrant/flask_apps/app01_env/
+    cp /home/vagrant/vagrant/flask_app/wsgi.py /home/vagrant/flask_apps/app01_env/
+    cp /home/vagrant/vagrant/gunicorn/gunicorn_config.py /home/vagrant/flask_apps/app01_env/
+    deactivate
+    echo '###############################'
+    echo 'APP DEPENDENCIES SETUP COMPLETE'
+    echo '###############################'
+    sleep 2
+
+
+    echo '#############'
+    echo 'SYSTEMD SETUP'
+    echo '#############'
+    sleep 2
+    sudo cp /home/vagrant/vagrant/systemd/app01.service  /etc/systemd/system/
+    sudo systemctl start app01
+    sudo systemctl enable app01.service
+    echo '######################'
+    echo 'SYSTEMD SETUP COMPLETE'
+    echo '######################'
+    sleep 2
+
+    echo '###########'
+    echo 'NGINX SETUP'
+    echo '###########'
+    sleep 2
+    sudo cp /home/vagrant/vagrant/nginx/nginx_app01.conf /etc/nginx/sites-available/
+    sudo rm /etc/nginx/sites-enabled/default
+    sudo ln -s /etc/nginx/sites-available/nginx_app01.conf /etc/nginx/sites-enabled
+    sudo service nginx start
+    echo '####################'
+    echo 'NGINX SETUP COMPLETE'
+    echo '####################'
+    sleep 2
+
+    sudo nginx -t
+    sudo service nginx restart
+
+    echo '###############################################'
+    echo 'SCALABLE-UBUNTU-FLASK-GUNICORN-NGINX SUCCESSFUL'
+    echo '###############################################'
+
+    cd flask_apps/
+    source app01_env/bin/activate
+    python app01_env/app01.py
 
    SHELL
 end
