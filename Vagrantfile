@@ -18,19 +18,12 @@ config.vm.box = "bento/ubuntu-18.04"
   # Create a private network, which allows host-only access to the machine
   config.vm.network "private_network", type: "dhcp"
 
-  #config.vm.provision "file", source: "/Users/firat.akkoc/Documents/git_repo/vagrant/flask_app/, destination: "$HOME/vagrant/flask_apps/app01_env/app01.py
   
   # Bridged networks make the machine appear as another physical device on
   # your network.
   # config.vm.network "public_network", type: "dhcp"
 
-
-  #config.push.define "local-exec" do |push|
-    #push.script = "deploy.sh"
-
-  # Share an additional folder to the guest VM.
-  
-
+ 
 
   # config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
@@ -47,13 +40,9 @@ config.vm.box = "bento/ubuntu-18.04"
     apt-get update
     sudo apt -y install git
     git clone https://github.com/firatakkoc/vagrant.git
-    sudo apt -y install ntpdate
-    sudo ntpdate pool.ntp.org
-    sudo apt -y install ntp
     sudo apt -y install build-essential libpq-dev libssl-dev openssl libffi-dev zlib1g-dev
-    sudo apt -y install python3-pip python3-dev python3-venv python3.4-venv
+    sudo apt -y install python3-pip python3-dev python3-venv
     sudo apt -y install nginx
-    sudo pip3 install virtualenvwrapper
     echo '############################'
     echo 'UBUNTU GLOBAL SETUP COMPLETE'
     echo '############################'
@@ -62,8 +51,11 @@ config.vm.box = "bento/ubuntu-18.04"
     echo '#################'
     echo 'UBUNTU USER SETUP'
     echo '#################'
+    
     sleep 2
 
+    sudo usermod -a -G root vagrant
+    umask 002
     echo '# default location of virtual environment directories' >> ~/.bashrc
     echo 'export WORKON_HOME=$HOME/.virtualenvs' >> ~/.bashrc
     echo '# default python version to use with virtualenv' >> ~/.bashrc
@@ -127,9 +119,7 @@ config.vm.box = "bento/ubuntu-18.04"
     echo 'SCALABLE-UBUNTU-FLASK-GUNICORN-NGINX SUCCESSFUL'
     echo '###############################################'
 
-    cd flask_apps/
-    source app01_env/bin/activate
-    python app01_env/app01.py
+    
 
    SHELL
 end
