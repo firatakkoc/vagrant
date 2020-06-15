@@ -5,6 +5,11 @@
 Vagrant.configure("2") do |config|
   
   config.vm.box = "bento/ubuntu-18.04"
+  config.vm.provider "virtualbox" do |v|
+    v.name = "FlaskVM"
+   end
+  config.vm.define "Flask" do |t|
+   end
   #config.vm.provision :shell, path: ""
 
   # accessing "localhost:8080" will access port 80 on the guest machine.
@@ -120,24 +125,37 @@ Vagrant.configure("2") do |config|
     echo 'SCALABLE-UBUNTU-FLASK-GUNICORN-NGINX SUCCESSFUL'
     echo '###############################################'
 
- SHELL
+   SHELL
+  
+   config.vm.provision "shell", inline: <<-SHELL
+    sudo chown vagrant flask_apps/*
+    sudo chown vagrant flask_apps/app01_env/*
+    sudo chown vagrant vagrant/*
+    sudo chown vagrant vagrant/flask_app/*
+    sudo chown vagrant vagrant/gunicorn/*
+    sudo chown vagrant vagrant/nginx/*
+    sudo chown vagrant vagrant/systemd/*
+   
+   SHELL
+   
+
 
   config.vm.provision "shell", inline: "bash vagrant/bootstrap.sh",
     run: "always"
-
+    
+  
 
 
   config.push.define "local-exec" do |push|
    push.inline = <<-SCRIPT
-   scp -r /Users/firat.akkoc/Documents/git_repo/vagrant/flask_app/app01.py vagrant@172.28.128.26:/home/vagrant/flask_apps/app01_env/
+   vagrant ssh Flask -c 'sudo pkill python'
+   scp -P 2222 /Users/firat.akkoc/Documents/git_repo/vagrant/flask_app/app01.py vagrant@127.0.0.1:/home/vagrant/flask_apps/app01_env/
    vagrant reload
+  
    SCRIPT
   
-  end
+    end
 
 
  
- 
-
-end 
-  
+ end 
