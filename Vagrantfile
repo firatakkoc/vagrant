@@ -4,8 +4,8 @@
 
 Vagrant.configure("2") do |config|
   
-config.vm.box = "bento/ubuntu-18.04"
-
+  config.vm.box = "bento/ubuntu-18.04"
+  #config.vm.provision :shell, path: ""
 
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # config.vm.network "forwarded_port", guest: 80, host: 8080
@@ -23,7 +23,6 @@ config.vm.box = "bento/ubuntu-18.04"
   # your network.
   # config.vm.network "public_network", type: "dhcp"
 
- 
 
   # config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
@@ -33,7 +32,6 @@ config.vm.box = "bento/ubuntu-18.04"
   #   vb.memory = "1024"
   # end
 
-  
   
   # Enable provisioning with a shell script.
   config.vm.provision "shell", inline: <<-SHELL
@@ -54,8 +52,10 @@ config.vm.box = "bento/ubuntu-18.04"
     
     sleep 2
 
-    sudo usermod -a -G root vagrant
+    sudo usermod -aG root vagrant
+    sudo usermod -aG sudo vagrant
     umask 002
+    pip3 install virtualenvwrapper
     echo '# default location of virtual environment directories' >> ~/.bashrc
     echo 'export WORKON_HOME=$HOME/.virtualenvs' >> ~/.bashrc
     echo '# default python version to use with virtualenv' >> ~/.bashrc
@@ -81,6 +81,7 @@ config.vm.box = "bento/ubuntu-18.04"
     cp /home/vagrant/vagrant/flask_app/wsgi.py /home/vagrant/flask_apps/app01_env/
     cp /home/vagrant/vagrant/gunicorn/gunicorn_config.py /home/vagrant/flask_apps/app01_env/
     deactivate
+    cd /app01_env
     echo '###############################'
     echo 'APP DEPENDENCIES SETUP COMPLETE'
     echo '###############################'
@@ -119,7 +120,24 @@ config.vm.box = "bento/ubuntu-18.04"
     echo 'SCALABLE-UBUNTU-FLASK-GUNICORN-NGINX SUCCESSFUL'
     echo '###############################################'
 
-    
+ SHELL
 
-   SHELL
-end
+  config.vm.provision "shell", inline: "bash vagrant/bootstrap.sh",
+    run: "always"
+
+
+
+  config.push.define "local-exec" do |push|
+   push.inline = <<-SCRIPT
+   scp -r /Users/firat.akkoc/Documents/git_repo/vagrant/flask_app/app01.py vagrant@172.28.128.26:/home/vagrant/flask_apps/app01_env/
+   vagrant reload
+   SCRIPT
+  
+  end
+
+
+ 
+ 
+
+end 
+  
