@@ -2,11 +2,11 @@
 
 ## Description:
 
-This solution provides scaffolding for a scalable Python Flask web application on Ubuntu 14.04 using Gunicorn and NGINX. The web application also leverages Virtualenv to leverage isolated Python environments.
+This solution provides scaffolding for a scalable Python Flask web application on Ubuntu 18.04 using Gunicorn and NGINX. The web application also leverages Virtualenv to leverage isolated Python environments.
 
 ## Deployment:
 
-By executing the setup.sh script (instructions below) you will have a "Hello World" web application which leverages Flask a microframework for Python and Gunicorn acting as a webserver with NGINX serving as a reverse proxy. Upon successful deployment and if port 80 is open to you, going to the server IP in a browser will show you the message "Hello World" in red.
+By executing the vagrant push (instructions below) you will have a "Hello World" web application which leverages Flask a microframework for Python and Gunicorn acting as a webserver with NGINX serving as a reverse proxy. Upon successful deployment and if port 5000 is open to you, going to the server IP in a browser (127.0.0.1:5000) will show you the message "Hello World" in red.
 
 ## Requirement:
 
@@ -20,28 +20,24 @@ By executing the setup.sh script (instructions below) you will have a "Hello Wor
 * Go into the setup directory and run the setup.sh script
 
 ```bash
+
 git clone https://github.com/firatakkoc/vagrant.git
 
-cd vagrant/vagrant/setup
+cd /vagrant
 
-bash setup.sh
+vagrant up
+
 ```
 
 ## What is the setup.sh script doing?
 
-Below are the general steps the setup.sh file is executing. Please see the actual setup.sh file in the setup directory for literal commands.
 
-### Ubuntu global setup
+### Ubuntu setup
 
 * Updating ubuntu packages
-* Installing ntpdate and updating time against pool.ntp.org
-* Installing nptd to maintain time avoiding drift
 * Installing Python3 dependencies to support virtualenv
 * Installing NGINX
 
-### Ubuntu user setup
-
-* Updating .bashrc of the ubuntu user to support virtualenv for development
 
 ### App dependencies setup
 
@@ -65,8 +61,3 @@ Below are the general steps the setup.sh file is executing. Please see the actua
 
 ## Performance notes:
 
-* Gunicorn is configured with 5 workers leveraging threading (2 per worker) each worker can handle 1000 connections. Typical formula is 2 workers per cpu core +1 worker
-* Gunicorn Timeout value is set to 30 seconds and keepalive is set to 2 seconds
-* NGINX is set to use 8 buffers and 24K size per buffer when reading a response from the proxied server for a single connection
-* NGINX is set to 4k buffer size used for headers from the pool
-* NGINX worker_processes are set to "auto" for detecting number of cores and setting that value
