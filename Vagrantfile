@@ -38,7 +38,7 @@ Vagrant.configure("2") do |config|
   #   vb.memory = "1024"
   # end
 
-  
+  # Just getting started...
   # Enable provisioning with a shell script.
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
@@ -127,7 +127,7 @@ Vagrant.configure("2") do |config|
     echo '###############################################'
 
    SHELL
-  
+    # This part: New created regulates the permissions of the files.
    config.vm.provision "shell", inline: <<-SHELL
     sudo chown vagrant flask_apps/*
     sudo chown vagrant flask_apps/app01_env/*
@@ -140,13 +140,13 @@ Vagrant.configure("2") do |config|
    SHELL
    
 
-
+   # This provision, every time it VM and run always.
   config.vm.provision "shell", inline: "bash vagrant/bootstrap.sh",
     run: "always"
     
   
 
-
+   # This command: Change file and proces kill. 
   config.push.define "local-exec" do |push|
    push.inline = <<-SCRIPT
    vagrant ssh Flask -c 'sudo pkill python'

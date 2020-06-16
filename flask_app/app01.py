@@ -3,7 +3,7 @@ hello = Flask(__name__)
 
 @hello.route("/")
 def greeting():
-    return "<h1 style='color:red'>Hello work!</h1>"
+    return "<h1 style='color:red'>Hello test!</h1>"
 
 if __name__ == "__main__":
     hello.run(host='0.0.0.0')
