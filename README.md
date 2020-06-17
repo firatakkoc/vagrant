@@ -17,9 +17,9 @@ By executing the vagrant push (instructions below) you will have a "Hello World"
 ## Setup:
 
 * SSH onto your we created with Vagrantfile VM and clone the repo into your /home/vagrant directory
-* Go into the setup directory and run the setup.sh script
+* Go into the setup directory and run the vagrant up
 
-```bash
+```
 
 git clone https://github.com/firatakkoc/vagrant.git
 
