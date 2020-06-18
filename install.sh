@@ -1,20 +1,17 @@
 #!bin/bash
 
-echo '############################'
-echo 'UBUNTU GLOBAL SETUP COMPLETE'
-echo '############################'
+sudo apt -y install build-essential libpq-dev libssl-dev openssl libffi-dev zlib1g-dev
+sudo apt -y install python3-virtualenv python3-pip python3-dev python3-venv
+sudo apt -y install python-virtualenv 
+pip3 install flask gunicorn virtualenv virtualenvwrapper flask-sqlalchemy 
+sudo apt -y install nginx
+
 sleep 2
-# ubuntu user setup
+
+# user setup 
 echo '#################'
 echo 'UBUNTU USER SETUP'
 echo '#################'
-
-sleep 2
-
-sudo usermod -aG root vagrant
-sudo usermod -aG sudo vagrant
-umask 002
-pip3 install virtualenvwrapper
 echo '# default location of virtual environment directories' >> ~/.bashrc
 echo 'export WORKON_HOME=$HOME/.virtualenvs' >> ~/.bashrc
 echo '# default python version to use with virtualenv' >> ~/.bashrc
@@ -30,7 +27,7 @@ sleep 2
 # app dependencies setup
 echo '######################'
 echo 'APP DEPENDENCIES SETUP'
-sudo apt -y install python-virtualenv
+echo '######################'
 mkdir /home/vagrant/flask_apps
 cd /home/vagrant/flask_apps
 virtualenv app01_env
