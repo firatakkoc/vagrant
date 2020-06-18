@@ -6,4 +6,4 @@ def greeting():
     return "<h1 style='color:red'>Hello cdfdfd!</h1>"
 
 if __name__ == "__main__":
-    hello.run(host='0.0.0.0')
+    hello.run(host='127.0.0.1')

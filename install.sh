@@ -76,4 +76,4 @@ echo '###############################################'
 echo 'SCALABLE-UBUNTU-FLASK-GUNICORN-NGINX SUCCESSFUL'
 echo '###############################################'
 
-SHELL
+sleep 2
