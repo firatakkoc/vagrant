@@ -1,6 +1,4 @@
 
-cd flask_apps/app01_env/
+source flask_apps/app01_env/bin/activate
 
-source bin/activate
-
-gunicorn app:app -b localhost:8000 & python app01.py
+gunicorn app:app -b localhost:8000 & python flask_apps/app01_env/app01.py
