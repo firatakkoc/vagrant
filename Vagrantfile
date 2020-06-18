@@ -47,7 +47,7 @@ Vagrant.configure("2") do |config|
 
   
      # This provision, every time it VM and run always.
-    config.vm.provision "shell", inline: "sudo su -c 'bash vagrant/bootstrap.sh' /bin/sh vagrant  "
+    config.vm.provision "shell", inline: "sudo su -c 'bash vagrant/bootstrap.sh' /bin/sh vagrant",
       run: "always"
 
      # This command: Change file and proces kill. 
