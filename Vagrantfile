@@ -55,7 +55,7 @@ Vagrant.configure("2") do |config|
       push.inline = <<-SCRIPT
       vagrant ssh Flask -c 'sudo pkill python'
       scp -P 2222 -i /Users/firat.akkoc/Documents/git_repo/vagrant/.vagrant/machines/Flask/virtualbox/private_key \ flask_app/app01.py vagrant@127.0.0.1:~/flask_apps/app01_env/
-      # vagrant reload
+      vagrant reload
       SCRIPT
     
      end
