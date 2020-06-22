@@ -28,7 +28,12 @@ vagrant up
 
 ```
 
-## What is the setup.sh script doing?
+## VagrantFile Notes:
+
+You are change code file for deploy , vagrant push command line "config.push.define "local-exec" do |push|"
+
+this part change "scp" -P 2222 -i
+ "private_key location" "file"    "vagrant@local_ip_or_static_ip":~/tagget/file
 
 
 ### Ubuntu setup
