@@ -6,7 +6,7 @@ This solution provides scaffolding for a scalable Python Flask web application o
 
 ## Deployment:
 
-By executing the vagrant push (instructions below) you will have a "Hello World" web application which leverages Flask a microframework for Python and Gunicorn acting as a webserver with NGINX serving as a reverse proxy. Upon successful deployment and if port 8000 is open to you, going to the server IP in a browser (127.0.0.1:8000) will show you the message "Hello World" in red.
+By executing the vagrant push (instructions below) you will have a "Hello World" web application which leverages Flask a microframework for Python and Gunicorn acting as a webserver with NGINX serving as a reverse proxy. Upon successful deployment and if port 5000 is open to you, going to the server IP in a browser (127.0.0.1:5000) will show you the message "Hello World" in red.
 
 ## Requirement:
 
